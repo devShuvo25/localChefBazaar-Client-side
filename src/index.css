@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "mytheme";
+  default: true; /* set as default */
+  prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
+  color-scheme: dark=; /* color of browser-provided UI */
+
+  --color-primary: "#FF3938";
+  --color-secondary: "#1E1E1E";
+  --color-accent: "#FFC93C";
+  --color-neutral: "#F0F0F0";
+  --color-bg: "#000000",
+}
+.font-inter{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+.my-links {
+  @apply text-secondary font-semibold hover:text-primary transition-colors duration-300 relative;
+}
+
+/* Optional: underline animation */
+.my-links::after {
+  content: '';
+  @apply absolute left-0 -bottom-1 h-[2px] bg-primary w-0 transition-all duration-300;
+}
+
+.my-links:hover::after {
+  @apply w-full;
+}
+.my-btn{
+  @apply btn  btn-primary;
+}
