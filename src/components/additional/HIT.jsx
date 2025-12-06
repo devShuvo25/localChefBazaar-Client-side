@@ -1,34 +1,10 @@
-import React from "react";
-import FullWidthSlider from "../components/banner/Banner";
-import { useNavigate } from "react-router";
-// eslint-disable-next-line no-unused-vars
+import React from 'react';
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../axios/useAxiosSecure";
-import { FaStar, FaMapMarkerAlt, FaClock } from "react-icons/fa";
-import Banner from "../components/banner/Banner";
-import DailyMeals from "../components/Features/DailyMeals";
-import CustommerReviews from "../components/Reviews/CustommerReviews";
-import HIT from "../components/additional/HIT";
-import Action from "../components/additional/Action";
 
-const Home = () => {
-  const navigate = useNavigate();
-  const { axiosSecure } = useAxiosSecure();
 
-  return (
-    <div className="bg-secondary font-inter">
-      {/* HERO / BANNER */}
-      <Banner />
-      {/* DYNAMIC DAILY MEALS */}
-      <DailyMeals />
-
-      {/* CUSTOMER REVIEWS */}
-      <CustommerReviews />
-
-      {/* EXTRA SECTION: HOW IT WORKS (ADDITIONAL) */}
-      <HIT />
-      {/* <section className="py-16 px-4 bg-secondary">
+const HIT = () => {
+    return (
+      <section className="py-16 px-4 bg-secondary">
         <div className="max-w-6xl mx-auto text-center">
           <motion.h3
             initial={{ opacity: 0 }}
@@ -58,12 +34,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section> */}
-
-      {/* CALL TO ACTION: BE A CHEF */}
-<Action />
-    </div>
-  );
+      </section>
+    );
 };
 
-export default Home;
+export default HIT;

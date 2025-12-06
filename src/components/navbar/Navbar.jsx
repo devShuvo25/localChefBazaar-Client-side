@@ -15,7 +15,7 @@ const Navbar = () => {
   };
   return (
     <div>
-      <div className="navbar bg-white shadow-sm text-secondary px-10">
+      <div className="navbar fixed z-100 bg-white shadow-sm text-secondary px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -45,7 +45,7 @@ const Navbar = () => {
             ></ul>
           </div>
           <a className=" text-xl font-bold ">
-            MALL<span className="text-primary">IK</span>
+            The Daily <span className="text-primary">Dish</span>
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
