@@ -7,6 +7,8 @@ import logo from "../../assets/logo.png";
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+
   const Links = [
     { name: "Home", path: "/" },
     { name: "Meals", path: "/meals" },
@@ -155,70 +157,85 @@ const Navbar = () => {
                 </div>
 
                 <nav>
-                  <ul className="flex flex-col gap-3">
-                    {Links.map((link) => (
-                      <li key={link.path}>
-                        <NavLink
-                          to={link.path}
-                          onClick={() => setDrawerOpen(false)}
-                          className={({ isActive }) =>
-                            `block py-2 px-3 rounded ${
-                              isActive
-                                ? "bg-primary text-white font-semibold"
-                                : "text-secondary"
-                            }`
-                          }
-                        >
-                          {link.name}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+  <ul className="flex flex-col gap-3">
 
-                <div className="mt-6 border-t pt-4">
-                  {!user ? (
-                    <div className="flex flex-col gap-3">
-                      <Link
-                        to="/login"
-                        onClick={() => setDrawerOpen(false)}
-                        className="btn btn-primary"
-                      >
-                        Sign in
-                      </Link>
-                      <Link
-                        to="/register"
-                        onClick={() => setDrawerOpen(false)}
-                        className="btn btn-outline"
-                      >
-                        Sign Up
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={
-                          user?.photoURL ||
-                          "https://cdn-icons-png.flaticon.com/512/219/219983.png"
-                        }
-                        alt="user"
-                        className="w-10 h-10 rounded-full"
-                      />
-                      <div className="flex-1">
-                        <p className="font-semibold">{user?.displayName}</p>
-                        <button
-                          onClick={() => {
-                            handleLogOut();
-                            setDrawerOpen(false);
-                          }}
-                          className="btn btn-sm btn-primary mt-2"
-                        >
-                          Logout
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
+    {/* Home + Meals */}
+    {Links.filter(l => l.name !== "Dashboard").map((link) => (
+      <li key={link.path}>
+        <NavLink
+          to={link.path}
+          onClick={() => setDrawerOpen(false)}
+          className={({ isActive }) =>
+            `block py-2 px-3 rounded ${
+              isActive
+                ? "bg-primary text-white font-semibold"
+                : "text-secondary"
+            }`
+          }
+        >
+          {link.name}
+        </NavLink>
+      </li>
+    ))}
+
+    {/* Dashboard dropdown */}
+    <li>
+      <button
+        onClick={() => setDashboardOpen(!dashboardOpen)}
+        className="w-full flex justify-between items-center py-2 px-3 font-semibold rounded hover:bg-base-200"
+      >
+        Dashboard
+        <span className="text-xl">
+          {dashboardOpen ? "−" : "+"}
+        </span>
+      </button>
+
+      <AnimatePresence>
+        {dashboardOpen && (
+          <motion.ul
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="ml-4 mt-2 space-y-2 overflow-hidden"
+          >
+            <li>
+              <Link
+                to="/dashboard/my-meals"
+                onClick={() => setDrawerOpen(false)}
+                className="block px-3 py-2 rounded text-sm hover:bg-primary hover:text-white"
+              >
+                My Meals
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/dashboard/my-favourites"
+                onClick={() => setDrawerOpen(false)}
+                className="block px-3 py-2 rounded text-sm hover:bg-primary hover:text-white"
+              >
+                Favourite Meals
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                to="/dashboard/manage-orders"
+                onClick={() => setDrawerOpen(false)}
+                className="block px-3 py-2 rounded text-sm hover:bg-primary hover:text-white"
+              >
+                Manage Orders
+              </Link>
+            </li>
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </li>
+
+  </ul>
+</nav>
+
               </motion.aside>
             </>
           )}
