@@ -4,6 +4,7 @@ import useAuth from "../../hooks/authentication/useAuth";
 import useAxiosSecure from "../../axios/useAxiosSecure";
 import MealsCard from "../cards/MealsCard";
 import { useLocation } from "react-router";
+import Loader from "../Loader/Loader";
 
 const FavouriteMeals = () => {
 const {user} = useAuth();
@@ -16,7 +17,7 @@ const location = useLocation();
         return res.data;
     }
   })
-  {isLoading && <p>Loading...</p>  }
+  {isLoading && <Loader/> }
   return (
     <div>
 
@@ -27,7 +28,10 @@ const location = useLocation();
       </div>
 
       {/* Empty State */}
-      {favouriteMeals.length === 0 && (
+      {
+        isLoading? <Loader/> : 
+        <div>
+           {favouriteMeals.length === 0 && (
         <div className="text-center py-14 bg-white rounded-xl shadow-md">
           <h2 className="text-xl font-semibold">No Favourite Meals Yet</h2>
           <p className="text-gray-500 mt-2">Start adding some meals to your favourites 🍽</p>
@@ -41,6 +45,8 @@ const location = useLocation();
         ))}
       </div>
 
+        </div>
+      }
     </div>
   );
 };

@@ -6,6 +6,7 @@ import useAuth from "../hooks/authentication/useAuth";
 import DetailsCard from "../components/cards/DetailsCard";
 import { FaStar } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader/Loader";
 
 const Details = () => {
   const { id } = useParams();
@@ -87,7 +88,7 @@ const handleFavourite = (mealId) => {
         <p className="text-sm opacity-75">View complete information about this dish before placing your order.</p>
       </div>
       {mealLoading ? (
-        <div className="flex justify-center py-20">Loading...</div>
+        <Loader/>
       ) : (
         <>
           <DetailsCard meal={meal} />

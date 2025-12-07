@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../axios/useAxiosSecure';
 import { FaClock, FaMapMarkerAlt, FaStar } from 'react-icons/fa';
+import Loader from '../Loader/Loader';
 
 
 const DailyMeals = () => {
@@ -44,9 +45,7 @@ const DailyMeals = () => {
           </motion.div>
 
           {mealsLoading ? (
-            <div className="flex justify-center items-center py-12">
-              <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
+            <Loader/>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {meals?.map((meal, i) => (

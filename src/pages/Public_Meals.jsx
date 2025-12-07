@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../axios/useAxiosSecure";
 import MealsCard from "../components/cards/MealsCard";
 import FeaturesCard from "../components/cards/FeaturesCard";
+import Loader from "../components/Loader/Loader";
 
 const Public_Meals = () => {
   const navigate = useNavigate();
@@ -65,9 +66,7 @@ const Public_Meals = () => {
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (
-            <div className="flex justify-center py-12">
-              <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
+            <Loader/>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {meals.map((meal) => (
