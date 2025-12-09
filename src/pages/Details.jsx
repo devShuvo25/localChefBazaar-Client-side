@@ -18,6 +18,7 @@ const Details = () => {
   const { user } = useAuth();
   const navigate = useNavigate()
   const inputRef = useRef(null);
+  const actionRef = useRef(null);
   const [isEditing,setIsEditing] = useState(false);
   const [editId,setEditId] = useState();
 
@@ -85,7 +86,7 @@ const Details = () => {
             return res.data
         }
     })
-      const { register, handleSubmit,setValue } = useForm();
+      const { register, handleSubmit,setValue ,reset} = useForm();
   const handlePostReview = (data) => {
     if (data) {
       const reviewInfo = {
@@ -103,6 +104,7 @@ const Details = () => {
      axiosSecure.post('/reviews',reviewInfo)
      .then(res=> {
       console.log(res.data);
+      reset()
       refetch()
      })
 
@@ -136,12 +138,17 @@ const Details = () => {
       .then(res => {
         console.log(res.data);
         if(res.data.modifiedCount){
-          setEditId(false)
+          setIsEditing(false)
+          reset()
           refetch()
         }
       })
     }
     const handleButtonAction = (data) => {
+            actionRef.current?.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+      inputRef.current?.focus();
+    }, 300);
       if(isEditing){
         console.log('hello',isEditing);
         return handleEditReview(editId,data)
@@ -149,6 +156,7 @@ const Details = () => {
       else{
         console.log(isEditing);
         handlePostReview(data)
+        
       }
     }
   return (
@@ -183,7 +191,7 @@ const Details = () => {
             </div>
             {/* <CustommerReviews/> */}
             <div>
-        <div className="flex justify-center items-center flex-col py-5">
+        <div ref={actionRef} className="flex justify-center items-center flex-col py-5">
                     <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-2">
               What Our <span className="text-primary">Customers</span> Say
             </h2>
@@ -191,7 +199,7 @@ const Details = () => {
               Real reviews from satisfied customers
             </p>
         </div>
-        <div className="flex flex-col gap-3 lg:gap-5 items-center justify-center">
+        <div  className="flex flex-col gap-3 lg:gap-5 items-center justify-center">
           {reviews.map(review => <ReviewCard handleEditReview={handleManageEdit} review={review} refetch={refetch}/> )}
         </div>
         
