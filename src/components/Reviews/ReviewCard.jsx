@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useAuth from "../../hooks/authentication/useAuth";
 import useAxiosSecure from "../../axios/useAxiosSecure";
 
-const ReviewCard = ({ review ,refetch,isMyReview }) => {
+const ReviewCard = ({ review ,refetch,isMyReview,handleEditReview }) => {
   const { user } = useAuth();
   const {_id, reviewerImage, mealImage, reviewerName, reviewerEmail, comment, rating, date } =
     review || {};
@@ -51,6 +51,10 @@ const ReviewCard = ({ review ,refetch,isMyReview }) => {
         }
 
     }
+    // review edit function
+    // const handleEditReview = (id) => {
+    //   console.log("clicked for edit",id);
+    // }
   return (
     <div
       className="w-full bg-white shadow-md rounded-xl p-4 flex gap-4 relative"
@@ -110,7 +114,7 @@ const ReviewCard = ({ review ,refetch,isMyReview }) => {
                 transition={{ duration: 0.18, ease: "easeOut" }}
                 className="absolute right-0 top-8 dropdown-content menu bg-base-100 rounded-lg w-40 p-2 shadow-lg border z-50"
               >
-                <li><a>Edit Review</a></li>
+                <li onClick={() => handleEditReview(_id,rating,comment)}><a>Edit Review</a></li>
                 <li onClick={() =>handleDeletReview(_id)} ><a className="text-red-500">Delete Review</a></li>
               </motion.ul>
             )}

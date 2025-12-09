@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { data, useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../axios/useAxiosSecure";
 import useAuth from "../hooks/authentication/useAuth";
@@ -10,11 +10,16 @@ import CustommerReviews from "../components/Reviews/CustommerReviews";
 // import ReviewCard from "../components/Reviews/CustommerReviewsInDetails";
 import { useForm } from "react-hook-form";
 import ReviewCard from "../components/Reviews/ReviewCard";
+import { useRef, useState } from "react";
 
 const Details = () => {
   const { id } = useParams();
   const { axiosSecure } = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate()
+  const inputRef = useRef(null);
+  const [isEditing,setIsEditing] = useState(false);
+  const [editId,setEditId] = useState();
 
   const { data: meal = {}, isLoading: mealLoading } = useQuery({
     queryKey: ["/meal", id],
@@ -80,7 +85,7 @@ const Details = () => {
             return res.data
         }
     })
-      const { register, handleSubmit } = useForm();
+      const { register, handleSubmit,setValue } = useForm();
   const handlePostReview = (data) => {
     if (data) {
       const reviewInfo = {
@@ -108,6 +113,44 @@ const Details = () => {
       }
     }
   };
+    const handleManageEdit = (id,rating,comment) => {
+      console.log("clicked for edit",id);
+      setEditId(id)
+      inputRef.current?.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => {
+      inputRef.current?.focus();
+    }, 300);
+    setIsEditing(true)
+    setValue("comment",comment);
+    setValue("rating",rating);
+      
+    }
+    const handleEditReview = (_id,data) => {
+      console.log(_id);
+      const editInfo = {
+        rating: data.rating,
+        comment: data.comment
+      }
+      console.log(editInfo);
+      axiosSecure.patch(`reviews/${_id}`,editInfo)
+      .then(res => {
+        console.log(res.data);
+        if(res.data.modifiedCount){
+          setEditId(false)
+          refetch()
+        }
+      })
+    }
+    const handleButtonAction = (data) => {
+      if(isEditing){
+        console.log('hello',isEditing);
+        return handleEditReview(editId,data)
+      }
+      else{
+        console.log(isEditing);
+        handlePostReview(data)
+      }
+    }
   return (
     <div className="py-5 px-4  mx-auto">
       <div className="flex flex-col text-center items-center justify-center my-5">
@@ -149,7 +192,7 @@ const Details = () => {
             </p>
         </div>
         <div className="flex flex-col gap-3 lg:gap-5 items-center justify-center">
-          {reviews.map(review => <ReviewCard review={review} refetch={refetch}/> )}
+          {reviews.map(review => <ReviewCard handleEditReview={handleManageEdit} review={review} refetch={refetch}/> )}
         </div>
         
     </div>
@@ -164,7 +207,7 @@ const Details = () => {
               className="mt-6 p-4 rounded"
             >
               <h4 className="font-semibold mb-2">Give Review</h4>
-              <div className="flex items-center gap-3 mb-3">
+              <div ref={inputRef} className="flex items-center gap-3 mb-3">
                 <label className="text-sm">Rating:</label>
                 <select {...register("rating", { required: true })}>
                   {[5, 4, 3, 2, 1].map((n) => (
@@ -174,7 +217,7 @@ const Details = () => {
                   ))}
                 </select>
               </div>
-              <textarea
+              <textarea 
                 {...register("comment", { required: true })}
                 className="textarea w-full mb-3"
                 placeholder="Write your review"
@@ -182,10 +225,10 @@ const Details = () => {
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={handleSubmit(handlePostReview)}
+                  onClick={handleSubmit(handleButtonAction)}
                   className="btn btn-primary"
                 >
-                  Post
+                {isEditing? "Edit" : 'Post'}
                 </button>
                 <button type="button" className="btn btn-ghost">
                   Reset
