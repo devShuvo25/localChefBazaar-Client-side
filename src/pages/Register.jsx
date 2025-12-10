@@ -59,6 +59,7 @@ const addUserToDB = useMutation({
     });
   };
   const handleLogin = (data) => {
+    // const formData = new FormData()
     if (data.user_password !== data.user_confirm_password) {
       return setError("Password did not matched!");
     }

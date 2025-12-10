@@ -12,6 +12,7 @@ import FavouriteMeals from "../components/Dashboard/MyFavourite";
 import Error from "../pages/Error";
 import OrderForm from "../pages/OrderForm";
 import MyReviews from "../dashboard/user/MyReviews";
+import AddMeal from "../pages/AddMeal";
 
 
 export const routes = createBrowserRouter([
@@ -73,6 +74,10 @@ export const routes = createBrowserRouter([
                         element:<UserPrivetRoutes>
                             <MyReviews/>
                         </UserPrivetRoutes>
+                    },
+                    {
+                        path:'create-meal',
+                        Component: AddMeal
                     }
 
                 ]

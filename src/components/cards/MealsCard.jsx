@@ -104,7 +104,7 @@ const MealsCard = ({ meal = {},isFavourite ,refetch}) => {
             </span>
             <span className="flex items-center gap-1">
               <FaClock className="text-primary" />{" "}
-              {estimatedDeliveryTime ?? "--"}m
+              {estimatedDeliveryTime ?? "--"}
             </span>
           </div>
         </div>

@@ -6,12 +6,12 @@ import { FiTruck } from "react-icons/fi";
 import { AiOutlineLike } from "react-icons/ai";
 
 const useLinks = () => {
-    const {role} = useRole()
-    // const role = "Admin" // Testing
+    // const {role} = useRole()
+    const role = "Chef" // Testing
     let links =[]
     if(role === "User"){
           links = [
-            { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
+            // { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
             { name: "Favourite Meals", icon:<AiOutlineLike />, path: "/dashboard/my-favourites" },
             { name: "My Reviews", icon:<MdReviews />, path: "/dashboard/my-reviews" },
             { name: "Manage Orders", icon:<FiTruck />, path: "/dashboard/manage-orders" },
@@ -20,8 +20,8 @@ const useLinks = () => {
     if(role === 'Chef'){
         links = [
             { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
-            { name: "Create a Meals", icon:<AiOutlineLike />, path: "/dashboard/my-favourites" },
-            { name: "Order Request", icon:<FiTruck />, path: "/dashboard/manage-orders" },
+            { name: "Create a Meals", icon:<AiOutlineLike />, path: "/dashboard/create-meal" },
+            { name: "Order Request", icon:<FiTruck />, path: "/dashboard/order-request" },
           ];
     }
     if(role === 'Admin'){
