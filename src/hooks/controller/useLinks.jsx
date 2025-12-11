@@ -6,8 +6,8 @@ import { AiOutlineLike } from "react-icons/ai";
 import useUserData from "../userRole/useRole";
 
 const useLinks = () => {
-  const { role } = useUserData();
-  // const role = "Chef" // Testing
+  // const { role } = useUserData();
+  const role = "Admin" // Testing
   let links = [];
   if (role === "Chef") {
     links = [
@@ -32,7 +32,7 @@ const useLinks = () => {
       {
         name: "Mange request",
         icon: <AiOutlineLike />,
-        path: "/dashboard/my-favourites",
+        path: "/dashboard/manage-request",
       },
     ];
   } else {

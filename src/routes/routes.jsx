@@ -15,6 +15,7 @@ import MyReviews from "../dashboard/user/MyReviews";
 import AddMeal from "../pages/AddMeal";
 import OrderRequest from "../pages/OrderRequest";
 import Profile from "../pages/Profile";
+import Manage_Request from "../dashboard/admin/Manafe_Request";
 
 
 export const routes = createBrowserRouter([
@@ -88,6 +89,10 @@ export const routes = createBrowserRouter([
                     {
                         path:'my-profile',
                         Component:Profile
+                    }
+                    ,{
+                        path:'manage-request',
+                        Component:Manage_Request
                     }
 
                 ]
