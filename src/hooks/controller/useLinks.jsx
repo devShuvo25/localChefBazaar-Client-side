@@ -11,6 +11,7 @@ const useLinks = () => {
   let links = [];
   if (role === "Chef") {
     links = [
+      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
       { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
       {
         name: "Create a Meals",
@@ -25,6 +26,8 @@ const useLinks = () => {
     ];
   } else if (role === "Admin") {
     links = [
+      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
+
       { name: "Manage User", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
       {
         name: "Mange request",
@@ -35,6 +38,8 @@ const useLinks = () => {
   } else {
     links = [
       // { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
+      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
+
       {
         name: "Favourite Meals",
         icon: <AiOutlineLike />,

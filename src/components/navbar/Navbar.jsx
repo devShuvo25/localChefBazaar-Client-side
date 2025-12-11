@@ -90,7 +90,7 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
-            {links.map((link) => (
+            {/* {links.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
@@ -105,7 +105,7 @@ const Navbar = () => {
                   {link.name}
                 </NavLink>
               </li>
-            ))}
+            ))} */}
           </ul>
         </div>
         <div className="navbar-end gap-5">

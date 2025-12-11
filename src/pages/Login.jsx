@@ -6,8 +6,33 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { HiMiniEyeSlash } from "react-icons/hi2";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../axios/useAxiosSecure";
 
 const Login = () => {
+  const {axiosSecure} = useAxiosSecure()
+   const addUserToDB = useMutation({
+  mutationFn: async (userInfo) => {
+    const res = await axiosSecure.post("/users", userInfo);
+    return res.data;
+  },
+  onSuccess: () => {
+    Swal.fire({
+      title: "Successfully created account",
+      icon: "success",
+      draggable: true,
+    });
+    navigate("/login");
+  },
+  onError: (err) => {
+    console.error(err);
+    Swal.fire({
+      title: "Error",
+      text: err.message,
+      icon: "error",
+    });
+  }
+});
   const {
     register,
     handleSubmit,
@@ -29,6 +54,7 @@ const Login = () => {
     googleSignIn()
       .then((result) => {
         if (result.user) {
+        addUserToDB.mutate(result?.user)
           Swal.fire({
             title: "Suucessfully loged in",
             icon: "success",

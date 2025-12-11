@@ -14,6 +14,7 @@ import OrderForm from "../pages/OrderForm";
 import MyReviews from "../dashboard/user/MyReviews";
 import AddMeal from "../pages/AddMeal";
 import OrderRequest from "../pages/OrderRequest";
+import Profile from "../pages/Profile";
 
 
 export const routes = createBrowserRouter([
@@ -83,6 +84,10 @@ export const routes = createBrowserRouter([
                     {
                         path:'order-request',
                         Component: OrderRequest
+                    },
+                    {
+                        path:'my-profile',
+                        Component:Profile
                     }
 
                 ]

@@ -16,7 +16,7 @@ const Register = () => {
   const [isActive, setIsActive] = useState(false);
   const [isActive_1, setIsActive_1] = useState(false);
   const { axiosSecure } = useAxiosSecure();
-const addUserToDB = useMutation({
+ const addUserToDB = useMutation({
   mutationFn: async (userInfo) => {
     const res = await axiosSecure.post("/users", userInfo);
     return res.data;
