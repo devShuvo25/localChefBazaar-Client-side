@@ -42,9 +42,9 @@ const FullWidthSlider = () => {
      initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="px-3 rounded-2xl"
+      className="w-full h-full"
     >
-          <div className="relative py-5   w-full overflow-hidden rounded-2xl ">
+      <div className="relative w-full h-full overflow-hidden">
       <div
         className="flex  transition-transform duration-700 ease-in-out"
         style={{
@@ -52,14 +52,14 @@ const FullWidthSlider = () => {
           transform: `translateX(-${currentIndex * (100 / cards.length)}%)`,
         }}
       >
-        {cards.map((card) => (
-                <div class="relative w-full  lg:h-[450px]">
+        {cards.map((card, index) => (
+          <div key={index} className="relative w-full h-full">
         <img
           src={card.image}
           class="w-full h-full object-cover"
         />
 
-        <div class="absolute inset-0 bg-black opacity-60"></div>
+
       </div>
         ))}
       </div>
