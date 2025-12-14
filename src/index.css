@@ -7,9 +7,9 @@
   prefersdark: false; /* set as default dark mode (prefers-color-scheme:dark) */
   color-scheme: dark=; /* color of browser-provided UI */
 
-  --color-primary: "#FF3938";
+  --color-primary: "#84C553";
   --color-secondary: "#1E1E1E";
-  --color-accent: "#F59E0B";
+  --color-accent: "#EC920B";
   /* --color-secondary:" #1E293B"; */
   --color-neutral: "#1E293B";
   --color-bg: "#FFF5F5",
