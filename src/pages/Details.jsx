@@ -11,8 +11,22 @@ import CustommerReviews from "../components/Reviews/CustommerReviews";
 import { useForm } from "react-hook-form";
 import ReviewCard from "../components/Reviews/ReviewCard";
 import { useRef, useState } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Details = () => {
+    const containerRef = useRef();
+    
+    useGSAP(() => {
+        gsap.from(".details-content", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+    }, { scope: containerRef });
+
   const { id } = useParams();
   const { axiosSecure } = useAxiosSecure();
   const { user } = useAuth();
@@ -160,7 +174,7 @@ const Details = () => {
       }
     }
   return (
-    <div className="py-5 px-4  mx-auto">
+    <div ref={containerRef} className="py-5 px-4  mx-auto">
       <div className="flex flex-col text-center items-center justify-center my-5">
         <h1 className="text-xl font-bold  lg:text-4xl text-primary">
           {" "}
@@ -174,10 +188,12 @@ const Details = () => {
         <Loader />
       ) : (
         <>
+          <div className="details-content">
           <DetailsCard meal={meal} />
+          </div>
 
           {/* Reviews Section */}
-          <section className="mt-8">
+          <section className="mt-8 details-content">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold">Reviews</h3>
               <div className="flex items-center gap-3">

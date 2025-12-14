@@ -8,8 +8,29 @@ import { useState } from "react";
 import { HiMiniEyeSlash } from "react-icons/hi2";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../axios/useAxiosSecure";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Login = () => {
+  const containerRef = useRef();
+  
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    tl.from(".left-section", {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    })
+    .from(".right-section", {
+      x: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.6");
+  }, { scope: containerRef });
+
   const { axiosSecure } = useAxiosSecure();
   // const addUserToDB = useMutation({
   //   mutationFn: async (userInfo) => {
@@ -91,11 +112,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full items-center justify-center  lg:p-10">
+    <div ref={containerRef} className="flex flex-col lg:flex-row w-full items-center justify-center  lg:p-10">
       <title>Log in</title>
 
       {/* Left side */}
-      <div className="w-full lg:w-[50%] ps-0  flex flex-col lg:flex-row mb-10 lg:mb-0 gap-2">
+      <div className="left-section w-full lg:w-[50%] ps-0  flex flex-col lg:flex-row mb-10 lg:mb-0 gap-2">
         <img className="h-50 max-w-xs " src={illustrator} alt="" />
         <div className="text-center lg:text-left">
           <h1 className="text-3xl lg:text-6xl -ms-1 font-bold text-primary">
@@ -110,7 +131,7 @@ const Login = () => {
       </div>
 
       {/* Right side */}
-      <div className="w-full lg:w-[50%]  flex justify-center">
+      <div className="right-section w-full lg:w-[50%]  flex justify-center">
         <div className="card bg-white shadow-sm flex flex-row w-full max-w-md shrink-0 p-3">
           <div className="card-body w-full">
             <div className="text-center">

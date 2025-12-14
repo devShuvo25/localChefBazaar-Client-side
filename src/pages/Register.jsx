@@ -8,8 +8,29 @@ import { HiMiniEyeSlash } from "react-icons/hi2";
 import Swal from "sweetalert2";
 import { useQuery,useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../axios/useAxiosSecure";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Register = () => {
+  const containerRef = useRef();
+  
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    tl.from(".left-section", {
+      x: -50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    })
+    .from(".right-section", {
+      x: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power2.out"
+    }, "-=0.6");
+  }, { scope: containerRef });
+
   const { googleSignIn, createUser, user ,updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState();
@@ -94,10 +115,10 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row w-full items-center justify-center  lg:p-10">
+    <div ref={containerRef} className="flex flex-col lg:flex-row w-full items-center justify-center  lg:p-10">
       <title>Log in</title>
       {/* Left side */}
-      <div className="w-full lg:w-[50%] ps-0  flex flex-col lg:flex-row items-start  mb-10 lg:mb-0">
+      <div className="left-section w-full lg:w-[50%] ps-0  flex flex-col lg:flex-row items-start  mb-10 lg:mb-0">
         <img className="h-50 w-full lg:w-50" src={illustrator} alt="" />
         <div className="text-center lg:text-left">
           <h1 className="text-3xl lg:text-6xl -ms-1 font-bold text-primary">
@@ -111,7 +132,7 @@ const Register = () => {
       </div>
 
       {/* Right side */}
-      <div className="w-full lg:w-[50%]  flex justify-center ">
+      <div className="right-section w-full lg:w-[50%]  flex justify-center ">
         <div className="card bg-white shadow-sm flex flex-row w-full max-w-md shrink-0 ">
           <div className="card-body w-full ">
             <div className="text-center">
