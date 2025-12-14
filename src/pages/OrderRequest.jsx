@@ -16,7 +16,7 @@ const OrderRequest = () => {
     const {axiosSecure} = useAxiosSecure()
     const {chefId} = useUserData()
     console.log(chefId)
-    const {data: orders =[],isLoading} = useQuery({
+    const {data: orders =[],isLoading,refetch} = useQuery({
         queryKey: ['order-request'],
         queryFn: async() => {
             if(chefId){
@@ -30,7 +30,23 @@ const OrderRequest = () => {
             }
         }
     })
+const handleOrderRequest = (id,action) => {
+  console.log(id,action);
+  if(id && action){
+    try{
+      axiosSecure.post(`/update-order?id=${id}&action=${action}`,)
+      .then(res => {
+        if(res.data.modifiedCount){
+          refetch();
+        }
+      })
 
+    }catch{
+      console.log("SOmething went wrong");
+    }
+  }
+
+}
 
 console.log(orders)
   if (isLoading) return <Loader fullScreen message="Fetching your orders..." />;
@@ -182,7 +198,8 @@ console.log(orders)
                     <div className="flex flex-row md:flex-col gap-3">
                       {/* Cancel Button */}
                       <button
-                      
+                      disabled={order.orderStatus !=='Pending'}
+                      onClick={() => handleOrderRequest(order._id, 'Cancel')}
                         
                         className="flex-1 md:flex-none px-4 py-2 bg-red-500 text-white rounded-lg font-semibold text-sm hover:bg-red-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
@@ -191,7 +208,9 @@ console.log(orders)
 
                       {/* Accept Button */}
                       <button
-                       
+                      disabled={order.orderStatus !=='Pending'}
+
+                       onClick={() => handleOrderRequest(order._id, 'Accept')}
                         
                         className="flex-1 md:flex-none px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold text-sm hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
@@ -200,6 +219,7 @@ console.log(orders)
 
                       {/* Deliver Button */}
                       <button
+                      onClick={() => handleOrderRequest(order._id, 'Deliverd')}
                        
                         
                         className="flex-1 md:flex-none px-4 py-2 bg-green-500 text-white rounded-lg font-semibold text-sm hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed"

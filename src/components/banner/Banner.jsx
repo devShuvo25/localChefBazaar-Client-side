@@ -18,7 +18,7 @@ const Banner = () => {
   };
 
   return (
-    <section className="relative min-h-[600px] md:min-h-[700px] h-[85vh] w-full overflow-hidden font-inter">
+    <section className="relative h-[50vh] md:h-[85vh] w-full overflow-hidden font-inter">
       <FullWidthSlider />
 
       {/* Overlay Gradient for better text readability */}
@@ -36,7 +36,7 @@ const Banner = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-3xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl px-2"
+            className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight tracking-tight drop-shadow-2xl"
           >
             Taste the <span className="text-primary italic">Authentic</span> <br />
             Flavors of Home
@@ -46,7 +46,7 @@ const Banner = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="mt-6 text-sm sm:text-lg md:text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md px-4"
+            className="mt-6 text-base sm:text-lg md:text-xl text-gray-100 max-w-2xl mx-auto font-medium drop-shadow-md"
           >
             Connect with local chefs and enjoy fresh, homemade meals delivered to your doorstep.
           </motion.p>
@@ -58,16 +58,16 @@ const Banner = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="mt-8 w-full max-w-lg pointer-events-auto"
           >
-            <form onSubmit={handleSearch} className="relative mx-4 sm:mx-0">
+            <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
                 name="search"
                 placeholder="Find your favorite meal..."
-                className="w-full py-3 sm:py-4 pl-5 sm:pl-6 pr-28 sm:pr-32 text-gray-800 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl border-2 border-white/50 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all text-sm sm:text-lg placeholder:text-gray-400"
+                className="w-full py-4 pl-6 pr-32 text-gray-800 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl border-2 border-white/50 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/20 transition-all text-base sm:text-lg placeholder:text-gray-400"
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1.5 bottom-1.5 sm:right-2 sm:top-2 sm:bottom-2 bg-primary hover:bg-green-600 text-white font-semibold rounded-full px-4 sm:px-6 text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
+                className="absolute right-2 top-2 bottom-2 bg-primary hover:bg-green-600 text-white font-semibold rounded-full px-6 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
               >
                 Search
               </button>
@@ -83,7 +83,7 @@ const Banner = () => {
           >
             <button
               onClick={() => navigate("/meals")}
-              className="btn hidden lg:block btn-primary btn-lg rounded-full px-10 text-white shadow-lg hover:shadow-primary/50 hover:-translate-y-1 transition-all duration-300 transform w-full sm:w-auto border-none"
+              className="btn hidden lg:flex btn-primary btn-lg rounded-full px-10 text-white shadow-lg hover:shadow-primary/50 hover:-translate-y-1 transition-all duration-300 transform w-full sm:w-auto border-none"
             >
               Explore Menus
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 ml-2">
@@ -93,7 +93,7 @@ const Banner = () => {
 
             <button
               onClick={() => navigate("/register")}
-              className="btn hidden lg:block  btn-lg rounded-full px-10 bg-white/10 backdrop-blur-md border border-white/40 text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group"
+              className="btn hidden lg:flex btn-lg rounded-full px-10 bg-white/10 backdrop-blur-md border border-white/40 text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto group"
             >
               Become a Chef
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform">

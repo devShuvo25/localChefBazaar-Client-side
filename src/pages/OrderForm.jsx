@@ -30,7 +30,7 @@ const OrderMeal = () => {
       }
     },
   });
-    const { foodName, chefId, foodImage, price } = orderedMeal || {};
+    const { foodName, chefId= 'CH-112', foodImage, price } = orderedMeal || {};
       const totalPrice = price * quantity + 40;
   // confirm delivary order
   const handleConfirmOrder = (data) => {
@@ -43,8 +43,8 @@ const OrderMeal = () => {
       quantity,
       orderTime: new Date(),
       totalPrice : orderedMeal.price * quantity + 40,
-      paymentStatus : "pending",
-      orderStatus : "pending",
+      paymentStatus : "Pending",
+      orderStatus : "Pending",
       orderDate : new Date().toISOString().split("T").join(", "),
       delivaryDate : delivaryTime,
       userEmail : data.userEmail,
@@ -141,14 +141,7 @@ const OrderMeal = () => {
                 <p className="text-primary font-semibold mt-1">৳ {price}</p>
               </div>
             </div>
-
-            <div className="flex flex-col items-end  sm:items-end text-sm gap-1">
-              <span className="bg-primary text-white px-4 py-1 rounded-full text-xs sm:text-sm">
-                Pending
-              </span>
-              <span className="text-xs text-gray-500">Chef ID : {chefId}</span>
-              <div className="flex flex-col sm:flex-row items-end justify-between gap-3">
-                <div className="flex items-center gap-6 bg-gray-100 px-2 py-1 rounded-full mx-auto sm:mx-0">
+                            <div className="flex items-center gap-6 bg-gray-100 px-2 py-1 rounded-full mx-auto sm:mx-0">
                   <button
 
                     type="button"
@@ -168,8 +161,16 @@ const OrderMeal = () => {
                     <FaPlus />
                   </button>
                 </div>
+
+            {/* <div className="flex flex-col items-end  sm:items-end text-sm gap-1">
+              <span className="bg-primary text-white px-4 py-1 rounded-full text-xs sm:text-sm">
+                Pending
+              </span>
+              <span className="text-xs text-gray-500">Chef ID : {chefId}</span>
+              <div className="flex flex-col sm:flex-row items-end justify-between gap-3">
+
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* ========== CUSTOMER INFO ========== */}

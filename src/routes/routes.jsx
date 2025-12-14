@@ -17,6 +17,7 @@ import OrderRequest from "../pages/OrderRequest";
 import Profile from "../pages/Profile";
 import Manage_Request from "../dashboard/admin/Manafe_Request";
 import Manage_Users from "../dashboard/admin/Manage_Users";
+import Orders from "../dashboard/user/Orders";
 
 
 export const routes = createBrowserRouter([
@@ -98,6 +99,11 @@ export const routes = createBrowserRouter([
                     {
                         path:'manage-users',
                         Component:Manage_Users
+                    }
+                    ,
+                    {
+                        path:'my-orders',
+                        Component: Orders
                     }
 
                 ]

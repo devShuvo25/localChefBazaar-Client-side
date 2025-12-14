@@ -51,9 +51,9 @@ const useLinks = () => {
         path: "/dashboard/my-reviews",
       },
       {
-        name: "Manage Orders",
+        name: "My Orders",
         icon: <FiTruck />,
-        path: "/dashboard/manage-orders",
+        path: "/dashboard/my-orders",
       },
     ];
   }
