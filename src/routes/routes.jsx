@@ -18,6 +18,7 @@ import Profile from "../pages/Profile";
 import Manage_Request from "../dashboard/admin/Manafe_Request";
 import Manage_Users from "../dashboard/admin/Manage_Users";
 import Orders from "../dashboard/user/Orders";
+import PaymentSuccess from "../pages/Paymentsuccess";
 
 
 export const routes = createBrowserRouter([
@@ -104,6 +105,10 @@ export const routes = createBrowserRouter([
                     {
                         path:'my-orders',
                         Component: Orders
+                    },
+                    {
+                        path:'payment-success',
+                        Component: PaymentSuccess
                     }
 
                 ]
