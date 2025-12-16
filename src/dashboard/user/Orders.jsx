@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../axios/useAxiosSecure";
 import useAuth from "../../hooks/authentication/useAuth";
+import PaymentLoader from "../../components/paymentloader/PaymentLoader";
+import { h1 } from "framer-motion/client";
+import Loader from "../../components/Loader/Loader";
+
+
 
 const Orders = () => {
   const { axiosSecure } = useAxiosSecure();
   const { user } = useAuth();
+  const [paymentLoading, setPaymentLoading] = useState(false);
+
 
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ["orders", user?.email],
@@ -15,45 +22,44 @@ const Orders = () => {
     },
     enabled: !!user?.email,
   });
-  const [id, setId] = useState();
-  const { data: order = {} } = useQuery({
-    queryKey: ["payment"],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/order/${id}`);
-      return res.data;
-    },
-  });
-  const handlePayment = (id) => {
-    console.log(id);
-    setId(id);
-    if (order) {
-      const paymentInfo = {
-        mealId:order.mealId,
-        amount: order.totalPrice,
-        custommer_email: order.userEmail
-      };
-    axiosSecure.post("/create-checkout-session", paymentInfo)
-    .then(res => {
-      console.log(res.data.url);
-      if(res.data){
-        window.location.href = res.data.url;
-      }
-    })
-      
+
+const handlePayment = async (order) => {
+  try {
+    setPaymentLoading(true);
+
+    const paymentInfo = {
+      amount: order.totalPrice,
+      customer_email: order.userEmail,
+      mealId: order.mealId,
+      mealName: order.mealName,
+      orderId: order._id,
+    };
+
+    const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+
+    if(res.data.url){
+      window.location.assign(res.data.url);
+
     }
-  };
+  } catch (err) {
+      setPaymentLoading(false)
+
+    console.error("Payment error:", err);
+  }
+};
+
+
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
+     <Loader/>
     );
   }
   // payment handling
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 bg-gray-50 min-h-screen">
+      <PaymentLoader show={paymentLoading} />
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
           My <span className="text-primary">Orders</span>
@@ -196,8 +202,8 @@ const Orders = () => {
 
                     <button
                       disabled={order.orderStatus !== "Accepted"}
-                      onClick={() => handlePayment(order._id)}
-                      className="btn btn-primary btn-xs"
+                      onClick={() => handlePayment(order)}
+                      className="btn btn-primary btn-xs px-5"
                     >
                       Pay
                     </button>
