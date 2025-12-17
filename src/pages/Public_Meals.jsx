@@ -53,10 +53,10 @@ const Public_Meals = () => {
       </section>
 
       {/* Controls: Search, Filter, Sort, View */}
-      <section className="py-8 px-4">
+      <section className=" px-4">
         <div className="max-w-7xl mx-auto">
           
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-8">
+          <div className="flex flex-col lg:flex-row gap-3 items-center justify-between mb-8">
              {/* Search Bar - Square/Rounded-lg Style */}
              <div className="relative w-full lg:max-w-2xl shadow-sm">
                <input 
@@ -73,7 +73,7 @@ const Public_Meals = () => {
              </div>
 
              {/* Action Buttons - Square/Rounded-lg Style */}
-             <div className="flex items-center gap-3 w-full lg:w-auto justify-end">
+             <div className="flex justify-between items-center gap-3 w-full lg:w-auto ">
                <button 
                   onClick={() => setShowFilters(!showFilters)}
                   className={`flex items-center gap-2 border px-6 py-3.5 rounded-lg font-semibold transition-all hover:shadow-md h-14 min-w-[120px] justify-center ${

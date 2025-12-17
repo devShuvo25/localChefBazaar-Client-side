@@ -14,7 +14,7 @@ const DashBoard = () => {
     <div className="flex min-h-screen bg-base-200">
 
       {/*Left Sidebar */}
-      <aside className="w-55 bg-primary text-white p-5 hidden md:block">
+      <aside className=" w-55 bg-primary text-white p-5 hidden md:block">
         <h2 className="text-xl flex items-center gap-2 font-bold mb-6"><MdOutlineDashboard /> Dashboard</h2>
 
         <ul className="menu w-full">
