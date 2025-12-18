@@ -20,7 +20,7 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Meals", path: "/meals" },
     // { name: "Details", path: "/details" },
-    { name: "Dashboard", path: "/dashboard" },
+    user ? { name: "Dashboard", path: "/dashboard" } : '',
   ];
   const [drawerOpen, setDrawerOpen] = useState(false);
   const handleLogOut = () => {

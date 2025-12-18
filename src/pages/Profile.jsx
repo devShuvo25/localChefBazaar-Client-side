@@ -79,6 +79,8 @@ console.log(userInfo);
   
   return (
     <>
+      <title>Profile</title>
+
     {isLoading? <Loader/> : 
     <div className="max-w-4xl mx-auto lg:p-6">
       

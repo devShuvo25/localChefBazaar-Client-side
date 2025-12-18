@@ -42,6 +42,8 @@ const Home = () => {
 
   return (
     <div ref={containerRef} className="bg-bg font-inter overflow-hidden">
+      <title>Home</title>
+
       {/* HERO / BANNER */}
       <div className="gsap-section">
         <Banner />

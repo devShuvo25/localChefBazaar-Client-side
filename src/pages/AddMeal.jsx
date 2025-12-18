@@ -171,6 +171,7 @@ const AddMeal = () => {
 
   return (
     <div className="bg-habit-bg min-h-screen text-habit-text mb-5  px-4">
+      <title>Create a Meal</title>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}

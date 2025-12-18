@@ -36,6 +36,8 @@ const Public_Meals = () => {
 
   return (
     <div className=" font-inter">
+      <title>All Meals</title>
+
       {/* Header / Hero */}
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto text-center">

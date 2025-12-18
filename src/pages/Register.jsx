@@ -116,7 +116,7 @@ const Register = () => {
 
   return (
     <div ref={containerRef} className="flex flex-col lg:flex-row w-full items-center justify-center  lg:p-10">
-      <title>Log in</title>
+      <title>Register</title>
       {/* Left side */}
       <div className="left-section w-full lg:w-[50%] ps-0  flex flex-col lg:flex-row items-start  mb-10 lg:mb-0">
         <img className="h-50 w-full lg:w-50" src={illustrator} alt="" />

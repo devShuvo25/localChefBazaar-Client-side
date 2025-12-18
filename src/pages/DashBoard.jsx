@@ -11,6 +11,8 @@ const DashBoard = () => {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-base-200">
+      <title>Dashboard</title>
+
       {/*Left Sidebar */}
       <aside className="w-full hidden lg:block md:w-55 bg-primary text-white p-5 md:p-6 md:block sticky top-0 md:h-screen md:overflow-auto">
         <h2 className="text-xl flex items-center gap-2 font-bold mb-6">

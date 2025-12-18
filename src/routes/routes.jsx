@@ -19,6 +19,7 @@ import Manage_Request from "../dashboard/admin/Manafe_Request";
 import Manage_Users from "../dashboard/admin/Manage_Users";
 import Orders from "../dashboard/user/Orders";
 import PaymentSuccess from "../pages/Paymentsuccess";
+import Statistics from "../dashboard/admin/Statistics";
 
 
 export const routes = createBrowserRouter([
@@ -56,12 +57,16 @@ export const routes = createBrowserRouter([
             },
             {
                 path:'/dashboard',
-                Component:DashBoard,
+                element: <UserPrivetRoutes>
+                            <DashBoard/>
+                        </UserPrivetRoutes>,
                 children: [
                     // Dashboard nested routes can be added here
                     {
                         index:true,
-                        element: <h1 className="flex justify-center items-center text-primary text-xl font-bold lg:text-4xl">My Meals Featured not added yet</h1>
+                        element:<UserPrivetRoutes>
+                            <Profile/>
+                        </UserPrivetRoutes>
                     },
                     {
                         path:'my-meals',
@@ -83,32 +88,52 @@ export const routes = createBrowserRouter([
                     },
                     {
                         path:'create-meal',
-                        Component: AddMeal
+                        element: <UserPrivetRoutes>
+                            <AddMeal/>
+                        </UserPrivetRoutes>
                     },
                     {
                         path:'order-request',
-                        Component: OrderRequest
+                        element: <UserPrivetRoutes>
+                            <OrderRequest/>
+                        </UserPrivetRoutes>
                     },
                     {
                         path:'my-profile',
-                        Component:Profile
+                        element: <UserPrivetRoutes>
+                            <Profile/>
+                        </UserPrivetRoutes>
                     }
                     ,{
                         path:'manage-request',
-                        Component:Manage_Request
+                        element: <UserPrivetRoutes>
+                            <Manage_Request/>
+                        </UserPrivetRoutes>
                     },
                     {
                         path:'manage-users',
-                        Component:Manage_Users
+                        element:<UserPrivetRoutes>
+                            <Manage_Users/>
+                        </UserPrivetRoutes>
+                    },
+                    {
+                        path:'statistics',
+                        element:<UserPrivetRoutes>
+                            <Statistics/>
+                        </UserPrivetRoutes>
                     }
                     ,
                     {
                         path:'my-orders',
-                        Component: Orders
+                        element:<UserPrivetRoutes>
+                            <Orders/>
+                        </UserPrivetRoutes>
                     },
                     {
                         path:'payment-success',
-                        element: <PaymentSuccess/>
+                        element:<UserPrivetRoutes>
+                            <PaymentSuccess/>
+                        </UserPrivetRoutes>
                     }
 
                 ]

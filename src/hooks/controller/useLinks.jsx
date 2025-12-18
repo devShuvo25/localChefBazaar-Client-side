@@ -1,8 +1,17 @@
 import React from "react";
-import { MdOutlineDashboard, MdReviews } from "react-icons/md";
-import { MdNoMeals } from "react-icons/md";
-import { FiTruck } from "react-icons/fi";
-import { AiOutlineLike } from "react-icons/ai";
+import { 
+  MdReviews, 
+  MdRestaurant, 
+  MdAddCircleOutline, 
+  MdFormatListBulleted, 
+  MdBarChart, 
+  MdFavorite, 
+  MdLocalShipping,
+  MdAccountCircle,
+  MdGroup,
+  MdOutlinePendingActions
+} from "react-icons/md";
+import { FaUser, FaUsers } from "react-icons/fa";
 import useUserData from "../userRole/useRole";
 
 const useLinks = () => {
@@ -11,38 +20,43 @@ const useLinks = () => {
   let links = [];
   if (role === "Chef") {
     links = [
-      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
-      { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
+      { name: "My Profile", icon: <MdAccountCircle />, path: "/dashboard/my-profile" },
+      { name: "My Meals", icon: <MdRestaurant />, path: "/dashboard/my-meals" },
       {
         name: "Create a Meals",
-        icon: <AiOutlineLike />,
+        icon: <MdAddCircleOutline />,
         path: "/dashboard/create-meal",
       },
       {
         name: "Order Request",
-        icon: <FiTruck />,
+        icon: <MdFormatListBulleted />,
         path: "/dashboard/order-request",
       },
     ];
   } else if (role === "Admin") {
     links = [
-      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
+      { name: "My Profile", icon: <MdAccountCircle />, path: "/dashboard/my-profile" },
 
-      { name: "Manage User", icon: <MdNoMeals />, path: "/dashboard/manage-users" },
+      { name: "Manage User", icon: <MdGroup />, path: "/dashboard/manage-users" },
       {
         name: "Mange request",
-        icon: <AiOutlineLike />,
+        icon: <MdOutlinePendingActions />,
         path: "/dashboard/manage-request",
+      },
+      {
+        name: "Statistics",
+        icon: <MdBarChart />,
+        path: "/dashboard/statistics",
       },
     ];
   } else {
     links = [
       // { name: "My Meals", icon: <MdNoMeals />, path: "/dashboard/my-meals" },
-      { name: "My Profile", icon: <MdNoMeals />, path: "/dashboard/my-profile" },
+      { name: "My Profile", icon: <MdAccountCircle />, path: "/dashboard/my-profile" },
 
       {
         name: "Favourite Meals",
-        icon: <AiOutlineLike />,
+        icon: <MdFavorite />,
         path: "/dashboard/my-favourites",
       },
       {
@@ -52,7 +66,7 @@ const useLinks = () => {
       },
       {
         name: "My Orders",
-        icon: <FiTruck />,
+        icon: <MdLocalShipping />,
         path: "/dashboard/my-orders",
       },
     ];

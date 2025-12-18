@@ -63,6 +63,8 @@ console.log(orders)
 
   return (
     <div className="min-h-screen bg-bg py-4  md:px-8">
+      <title>Request orders</title>
+
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">

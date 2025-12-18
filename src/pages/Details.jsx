@@ -175,6 +175,8 @@ const Details = () => {
     }
   return (
     <div ref={containerRef} className="py-5 px-4  mx-auto">
+      <title>Meal-Details</title>
+
       <div className="flex flex-col text-center items-center justify-center my-5">
         <h1 className="text-xl font-bold  lg:text-4xl text-primary">
           {" "}
