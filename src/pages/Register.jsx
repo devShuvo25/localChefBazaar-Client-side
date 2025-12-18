@@ -38,6 +38,42 @@ const Register = () => {
   const [isActive_1, setIsActive_1] = useState(false);
   const { axiosSecure } = useAxiosSecure();
   const [isLoading,setIsLoading] = useState(false)
+
+    const handleUploadProfileImage = async (data) => {
+    const file = data.profile_image[0];
+    if (!file) return alert("Please select an image");
+
+    // Convert to base64
+    const toBase64 = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(",")[1]); // remove data:image/...;base64,
+        reader.onerror = (error) => reject(error);
+      });
+
+    const base64Image = await toBase64(file);
+
+    const formData = new FormData();
+    formData.append("image", base64Image); // 🔥 must be 'image'
+
+    const imageAPI = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMAGE_HOST
+    }`;
+
+    try {
+      const res = await fetch(imageAPI, {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await res.json();
+      // console.log("Uploaded Image:", result.data);
+      return result.data.url; // this is the URL
+    } catch (err) {
+      console.error(err);
+    }
+  };
  const addUserToDB = useMutation({
   mutationFn: async (userInfo) => {
     const res = await axiosSecure.post("/users", userInfo);
@@ -75,7 +111,10 @@ const Register = () => {
       }
     });
   };
-  const handleRegister = (data) => {
+  const handleRegister = async(data) => {
+    console.log(data.profile_image[0])
+    const photoURL = await handleUploadProfileImage(data)
+    console.log(photoURL);
     // const formData = new FormData()
     if (data.user_password !== data.user_confirm_password) {
       return setError("Password did not matched!");
@@ -86,7 +125,7 @@ const Register = () => {
       if (result.user) {
         const profile = {
           displayName: data.user_name,
-          photoURL: data.user_photoURL || null
+          photoURL: photoURL || null
         }
        await updateUserProfile(profile)
         const userData = {
@@ -97,6 +136,7 @@ const Register = () => {
           role: "User",
           created_at: new Date(),
         };
+        console.log(userData);
         addUserToDB.mutate(userData)
         setIsLoading(false)
         Swal.fire({
@@ -153,6 +193,29 @@ const Register = () => {
                     },
                   })}
                 />
+                <label className="label">Image</label>
+                    <input
+  type="file"
+  className="
+    w-full
+    p-[11px]
+    outline-[1px]
+    focus:outline-primary
+    outline-gray-300
+    border-1px
+    rounded-full
+    file:mr-4
+    file:py-0
+    file:px-4
+    file:border-0
+    file:bg-transparent
+    file:text-gray-500
+    file:font-medium
+    cursor-pointer
+  "
+  {...register("profile_image")}
+/>
+
                 {errors.user_name && (
                   <p className="text-primary">{errors?.user_name.message}</p>
                 )}

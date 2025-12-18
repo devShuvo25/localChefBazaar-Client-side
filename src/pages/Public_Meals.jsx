@@ -187,6 +187,7 @@ const Public_Meals = () => {
       </section>
 
       {/* Meals grid */}
+        <p className="ms-5">({meals.length}) Items Found</p>
       <section className="py-8 px-4">
         <div className="max-w-7xl mx-auto">
           {isLoading ? (

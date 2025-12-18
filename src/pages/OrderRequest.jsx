@@ -12,6 +12,8 @@ import {
 } from "react-icons/fa";
 import useUserData from "../hooks/userRole/useRole";
 
+import Swal from "sweetalert2";
+
 const OrderRequest = () => {
     const {axiosSecure} = useAxiosSecure()
     const {chefId} = useUserData()
@@ -33,19 +35,41 @@ const OrderRequest = () => {
 const handleOrderRequest = (id,action) => {
   console.log(id,action);
   if(id && action){
-    try{
-      axiosSecure.post(`/update-order?id=${id}&action=${action}`,)
-      .then(res => {
-        if(res.data.modifiedCount){
-          refetch();
+    Swal.fire({
+      title: `Are you sure you want to ${action.toLowerCase()} this order?`,
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, ${action}!`,
+      background: "#fff",
+      borderRadius: "15px"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try{
+          axiosSecure.post(`/update-order?id=${id}&action=${action}`,)
+          .then(res => {
+            if(res.data.modifiedCount){
+              refetch();
+              Swal.fire({
+                title: "Success!",
+                text: `Order has been ${action === 'Accept' ? 'accepted' : action === 'Cancel' ? 'cancelled' : 'delivered'} successfully.`,
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false,
+                borderRadius: "15px"
+              });
+            }
+          })
+
+        }catch{
+          console.log("SOmething went wrong");
+          Swal.fire("Error", "Something went wrong while updating order.", "error");
         }
-      })
-
-    }catch{
-      console.log("SOmething went wrong");
-    }
+      }
+    });
   }
-
 }
 
 console.log(orders)
@@ -222,6 +246,7 @@ console.log(orders)
                       {/* Deliver Button */}
                       <button
                       onClick={() => handleOrderRequest(order._id, 'Deliverd')}
+                      disabled={order.orderStatus !=='Accept'}
                        
                         
                         className="flex-1 md:flex-none px-4 py-2 bg-green-500 text-white rounded-lg font-semibold text-sm hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed"

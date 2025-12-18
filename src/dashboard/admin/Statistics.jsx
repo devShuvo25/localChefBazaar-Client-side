@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -13,35 +13,94 @@ import {
   Legend,
 } from 'recharts';
 import { FaUsers, FaClipboardList, FaCheckCircle, FaWallet } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../axios/useAxiosSecure';
 
 const Statistics = () => {
   // Dummy Data for Stat Cards
+  const {axiosSecure} = useAxiosSecure()
+  const [totalPayment,setTotalPayment] = useState()
+  const [totalPending,setTotalPending] = useState()
+  const [totalDeliverd,setTotalDelivered] = useState()
+  const [totalCancelled,setTotalCancelled] = useState()
+  const {data:users =[]} = useQuery({
+    queryKey: ['totalUser'],
+    queryFn: async() => {
+      const res = await  axiosSecure.get('/users');
+      return res.data
+    }
+      
+     
+  })
+  useEffect(() => {
+    axiosSecure.get('/all-orders')
+    .then(res => {
+      const orders = res.data;
+      console.log(orders);
+      const amountArr = orders.map(order => order.price)
+      if(amountArr){
+       const totalPayment = amountArr.reduce((total, num) => total + num, 0);
+       setTotalPayment(totalPayment)
+      }
+      
+    })
+  },[axiosSecure])
+  useEffect(() => {
+    axiosSecure.get('/pending-orders')
+    .then(res => {
+      if(res.data){
+        console.log(res.data);
+       setTotalPending(res?.data?.length)
+      }
+      
+    })
+  },[axiosSecure])
+  useEffect(() => {
+    axiosSecure.get('/order-delivered')
+    .then(res => {
+      if(res.data){
+        console.log(res.data);
+       setTotalDelivered(res?.data?.length)
+      }
+      
+    })
+  },[axiosSecure])
+  useEffect(() => {
+    axiosSecure.get('/order-cancelled')
+    .then(res => {
+      if(res.data){
+        console.log(res.data);
+       setTotalCancelled(res?.data?.length)
+      }
+      
+    })
+  },[axiosSecure])
   const stats = [
     {
       id: 1,
       title: 'Total Payment Amount',
-      value: '$24,500',
+      value: totalPayment,
       icon: <FaWallet className="text-3xl" />,
       color: 'bg-emerald-100 text-emerald-600',
     },
     {
       id: 2,
       title: 'Total Users',
-      value: '1,280',
+      value: users.length,
       icon: <FaUsers className="text-3xl" />,
       color: 'bg-blue-100 text-blue-600',
     },
     {
       id: 3,
       title: 'Orders Pending',
-      value: '45',
+      value: totalPending,
       icon: <FaClipboardList className="text-3xl" />,
       color: 'bg-orange-100 text-orange-600',
     },
     {
       id: 4,
       title: 'Orders Delivered',
-      value: '890',
+      value: totalDeliverd,
       icon: <FaCheckCircle className="text-3xl" />,
       color: 'bg-sky-100 text-sky-600',
     },
@@ -60,9 +119,9 @@ const Statistics = () => {
 
   // Dummy Data for Pie Chart (Order Distribution)
   const pieData = [
-    { name: 'Delivered', value: 890 },
-    { name: 'Pending', value: 45 },
-    { name: 'Cancelled', value: 20 },
+    { name: 'Delivered', value: totalDeliverd},
+    { name: 'Pending', value: totalPending },
+    { name: 'Cancelled', value: totalCancelled },
   ];
 
   const COLORS = ['#10b981', '#f59e0b', '#ef4444'];
