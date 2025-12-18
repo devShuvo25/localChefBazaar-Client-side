@@ -23,7 +23,9 @@ const Public_Meals = () => {
     useEffect( () => {
       setIsLoading(true)
       try {
-          axiosSecure.get(`/meals?searchValue=${searchValue}&sortValue=${sortValue}&fv=${filterValue}&fv2=${filterValue2}&fv3=${filterValue3}`)
+          axiosSecure.get(`/meals?searchValue=${searchValue}&sortValue=${sortValue}&fv=${filterValue}&fv2=${filterValue2}&fv3=${filterValue3}`,
+            
+          )
           .then(res => {
             setMeals(res?.data)
             setIsLoading(false)

@@ -13,10 +13,11 @@ const AddMeal = () => {
   const { register, handleSubmit } = useForm();
   const { user } = useAuth();
   const { axiosSecure } = useAxiosSecure();
-  const { chefId, name, status } = useUserData();
+  const { chefId = "Ch-122", name, status } = useUserData();
   const { state } = useLocation();
   const { value, id } = state || {};
   const [meal, setMeal] = useState({});
+  const [isLoading,setIsLoading] = useState(false)
 
   useEffect(() => {
     if (value === "isUpdate" && id) {
@@ -73,6 +74,7 @@ const AddMeal = () => {
     }
   };
   const handleCreateMeal = async (data) => {
+    setIsLoading(true)
     const ingredientsData = data.ingredients.trim().split(","); // array of strings
     const ingredients = ingredientsData.map((item) => {
       const trimmed = item.trim(); // remove spaces around each ingredient
@@ -94,7 +96,6 @@ const AddMeal = () => {
         chefId: data.chef_id,
         action: "Order Now",
       };
-      console.log(mealData);
       Swal.fire({
         title: "Do you want to add a new meal?",
         html: "Uploading image and saving data, please wait...",
@@ -103,10 +104,13 @@ const AddMeal = () => {
         showLoaderOnConfirm: true,
         confirmButtonText: "Yes ,Add",
       }).then((result) => {
+        setIsLoading(false)
         if (result.isConfirmed && status !== "Fraud") {
+          setIsLoading(true)
           try {
             axiosSecure.post("/add-meal", mealData).then((res) => {
               if (res.data.insertedId) {
+                setIsLoading(false)
                 Swal.fire("Added", "", "success");
               }
             });
@@ -114,6 +118,7 @@ const AddMeal = () => {
             console.log("Something went erong to post meal");
           }
         } else {
+          setIsLoading(false)
           Swal.fire({
             icon: "error",
             title: "Permission Denied",
@@ -131,6 +136,7 @@ const AddMeal = () => {
     });
     const photoURL = await handleUploadFoodImage(data);
     if (data && user) {
+      setIsLoading(false)
       const mealData = {
         foodName: data.food_name,
         foodImage: photoURL,
@@ -146,6 +152,7 @@ const AddMeal = () => {
         action: "Order Now",
       };
       console.log(mealData);
+      
       Swal.fire({
         title: "Do you want to Update this meal?",
         html: "Uploading image and saving data, please wait...",
@@ -154,14 +161,19 @@ const AddMeal = () => {
         showLoaderOnConfirm: true,
         confirmButtonText: "Yes ,Update",
       }).then((result) => {
+        setIsLoading(false)
         if (result.isConfirmed) {
+          setIsLoading(true)
+
           try {
             axiosSecure.patch(`/update-meal/${id}`, mealData).then((res) => {
               if (res.data.modifiedCount) {
+                setIsLoading(false)
                 Swal.fire("Updated", "", "success");
               }
             });
           } catch {
+            setIsLoading(false)
             console.log("Something went erong to Update meal");
           }
         }
@@ -364,7 +376,8 @@ const AddMeal = () => {
           </Link>
           {value !== "isUpdate" ? (
             <button type="submit" className="btn my-btn">
-              Add Meal
+            {isLoading? <>Please Wait... <span className="loading loading-spinner loading-sm"></span></>   : 'Add Meal'}
+
             </button>
           ) : (
             <button type="submit" className="btn my-btn">

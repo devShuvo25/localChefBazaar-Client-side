@@ -72,7 +72,7 @@ const MyMeals = () => {
       {/* Meal Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {meals?.map((meal) => (
-          <MealsCard key={meal._id} meal={meal}
+          <MealsCard key={meal._id} meal={meal} 
            handleDelete={handleDelete}></MealsCard>
         ))}
       </div>

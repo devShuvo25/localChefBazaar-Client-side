@@ -7,7 +7,7 @@ The goal of this project is to provide an easy, user-friendly interface for brow
 ---
 
 ## 🌐 Live Website
-🔗 https://localchef-bazar.netlify.app/
+🔗 https://the-daily-dish.netlify.app/
 
 ---
 
