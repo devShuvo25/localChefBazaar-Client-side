@@ -38,7 +38,7 @@ const {data: history = {}} = useQuery({
 })
 console.log('histor',history);
   return (
-<div className="min-h-screen bg-habit-bg flex items-center justify-center px-4 py-12">
+<div className="my-5 bg-habit-bg flex items-center justify-center  lg:py-12">
   <title>Payment Success</title>
 
   <motion.div
@@ -47,7 +47,7 @@ console.log('histor',history);
     transition={{ duration: 0.5 }}
     className="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden"
   >
-    <div className="p-8 text-center">
+    <div className="p-5 lg:p-8 text-center">
       {/* Success Icon */}
       <motion.div
         initial={{ scale: 0 }}
@@ -75,7 +75,7 @@ console.log('histor',history);
           {history?.transectionId?.id && (
             <div className="flex justify-between">
               <span className="text-gray-600">Transaction ID</span>
-              <span className="font-semibold text-gray-800 font-mono text-sm">{history?.transectionId.id}</span>
+              <span className="font-semibold text-gray-800 font-mono text-sm">{history?.transectionId.id.slice(3,20)}</span>
             </div>
           )}
 
