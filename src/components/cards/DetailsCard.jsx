@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router";
 
-const DetailsCard = ({ meal = {}, onOrder }) => {
+const DetailsCard = ({ meal = {} }) => {
   const {
+    _id,
     foodName,
     chefName,
     foodImage,
@@ -64,9 +66,9 @@ const DetailsCard = ({ meal = {}, onOrder }) => {
           </div>
 
           <div className="flex gap-3">
-            <button onClick={() => onOrder?.(meal)} className="btn btn-primary">
+            <Link to={`/order/${_id}`} className="btn btn-primary">
               Order Now
-            </button>
+            </Link>
           </div>
         </div>
       </div>
