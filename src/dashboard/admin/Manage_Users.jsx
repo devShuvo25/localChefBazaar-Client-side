@@ -19,7 +19,7 @@ const Manage_Users = () => {
     },
   });
 
-  // 🔴 Make Fraud
+  // 🔴 Mark User as Fraud
   const handleMakeFraud = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -44,19 +44,21 @@ const Manage_Users = () => {
     let list = [...users];
     const q = searchQuery.toLowerCase();
 
+    // Filter by name or email
     if (q) {
       list = list.filter(
         (u) =>
-          u.user_name?.toLowerCase().includes(q) ||
-          u.user_email?.toLowerCase().includes(q)
+          u.name?.toLowerCase().includes(q) ||
+          u.email?.toLowerCase().includes(q)
       );
     }
 
+    // Sorting
     list.sort((a, b) => {
-      if (sortOption === "name-asc")
-        return a.user_name?.localeCompare(b.user_name);
-      if (sortOption === "name-desc")
-        return b.user_name?.localeCompare(a.user_name);
+      if (sortOption === "name-asc") return a.name?.localeCompare(b.name);
+      if (sortOption === "name-desc") return b.name?.localeCompare(a.name);
+      if (sortOption === "newest")
+        return new Date(b.created_at) - new Date(a.created_at);
       return 0;
     });
 
@@ -104,12 +106,13 @@ const Manage_Users = () => {
           >
             <div className="flex items-center gap-3">
               <img
-                src={user.user_image || "/favicon.ico"}
+                src={user.profile_image || "/favicon.ico"}
                 className="w-12 h-12 rounded-full"
+                alt={user.name}
               />
               <div>
-                <p className="font-semibold">{user.user_name}</p>
-                <p className="text-xs text-gray-500">{user.user_email}</p>
+                <p className="font-semibold">{user.name}</p>
+                <p className="text-xs text-gray-500">{user.email}</p>
               </div>
             </div>
 
@@ -140,6 +143,13 @@ const Manage_Users = () => {
                 Make Fraud
               </button>
             )}
+
+            <button
+              className="btn btn-sm btn-outline w-full mt-2"
+              onClick={() => setSelectedUser(user)}
+            >
+              View Details
+            </button>
           </div>
         ))}
       </div>
@@ -161,12 +171,13 @@ const Manage_Users = () => {
               <tr key={user._id}>
                 <td className="flex items-center gap-3">
                   <img
-                    src={user.user_image || "/favicon.ico"}
+                    src={user.profile_image || "/favicon.ico"}
                     className="w-10 h-10 rounded-full"
+                    alt={user.name}
                   />
-                  <span>{user.user_name}</span>
+                  <span>{user.name}</span>
                 </td>
-                <td>{user.user_email}</td>
+                <td>{user.email}</td>
                 <td>
                   <span className="badge badge-secondary capitalize">
                     {user.role}
@@ -181,7 +192,7 @@ const Manage_Users = () => {
                 >
                   {user.status}
                 </td>
-                <td className="text-right">
+                <td className="text-right flex justify-end gap-2">
                   {user.role !== "Admin" && (
                     <button
                       disabled={user.status === "Fraud"}
@@ -191,6 +202,12 @@ const Manage_Users = () => {
                       Make Fraud
                     </button>
                   )}
+                  <button
+                    className="btn btn-sm btn-outline"
+                    onClick={() => setSelectedUser(user)}
+                  >
+                    View
+                  </button>
                 </td>
               </tr>
             ))}
@@ -205,7 +222,35 @@ const Manage_Users = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           onClick={() => setSelectedUser(null)}
-        />
+        >
+          <motion.div
+            className="bg-white rounded-lg p-6 w-11/12 md:w-1/3 relative"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl font-bold mb-4">{selectedUser.name}</h2>
+            <p>
+              <strong>Email:</strong> {selectedUser.email}
+            </p>
+            <p>
+              <strong>Role:</strong> {selectedUser.role}
+            </p>
+            <p>
+              <strong>Status:</strong> {selectedUser.status}
+            </p>
+            <p>
+              <strong>Created At:</strong>{" "}
+              {new Date(selectedUser.created_at).toLocaleString()}
+            </p>
+            <button
+              onClick={() => setSelectedUser(null)}
+              className="btn btn-sm btn-primary mt-4"
+            >
+              Close
+            </button>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );

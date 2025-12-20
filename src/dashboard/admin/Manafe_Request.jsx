@@ -126,7 +126,7 @@ const Manage_Request = () => {
                        <select className="w-full appearance-none bg-gray-50 hover:bg-white text-gray-700 border border-gray-200 rounded-lg py-3 pl-6 pr-10 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 cursor-pointer transition-all font-medium h-12">
                           <option>All Types</option>
                           <option>Chef</option>
-                          <option>Delivery Man</option>
+                          <option>Admin</option>
                        </select>
                        <span className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4">

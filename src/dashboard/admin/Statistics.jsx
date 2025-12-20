@@ -37,9 +37,11 @@ const Statistics = () => {
     .then(res => {
       const orders = res.data;
       console.log(orders);
-      const amountArr = orders.map(order => order.price)
+      const amountArr = orders.map(order => Number(order.price))
       if(amountArr){
+        console.log('Amount Arr:',amountArr);
        const totalPayment = amountArr.reduce((total, num) => total + num, 0);
+       console.log('Total:',totalPayment);
        setTotalPayment(totalPayment)
       }
       
